@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1", "Assignment1\Assignment1.csproj", "{F3D38D4D-7D06-4A2D-A987-F7E20D9B17ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgAssign1", "ProgAssign1\ProgAssign1.csproj", "{F3D38D4D-7D06-4A2D-A987-F7E20D9B17ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

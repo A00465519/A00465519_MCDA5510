@@ -1,0 +1,16 @@
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.csproj.AssemblyReference.cache
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.AssemblyInfoInputs.cache
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.AssemblyInfo.cs
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.csproj.CoreCompileInputs.cache
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.exe
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.deps.json
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.runtimeconfig.json
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.runtimeconfig.dev.json
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.dll
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\bin\Debug\net5.0\ProgAssign1.pdb
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.dll
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\refint\ProgAssign1.dll
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.pdb
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ProgAssign1.genruntimeconfig.cache
+C:\Users\Vishnu\Workspace\MCDA\5510\A00465519_MCDA5510\Assignment1\ProgAssign1\obj\Debug\net5.0\ref\ProgAssign1.dll
