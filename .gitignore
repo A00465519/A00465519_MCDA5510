@@ -1,1 +1,8 @@
 Assignment1/ProgAssign1/Sample Data/
+Assignment1/.vs/
+*.suo
+*.user
+_ReSharper.*
+Assignment1/ProgAsign1/bin
+Assignment1/ProgAsign1/obj
+Assignment1/ProgAsign1/packages
