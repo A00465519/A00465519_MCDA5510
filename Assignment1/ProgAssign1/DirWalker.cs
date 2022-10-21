@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Assignment1
+namespace ProgAssign1
 {
   
 
@@ -32,11 +32,11 @@ namespace Assignment1
             }
         }
 
-        public static void Main(String[] args)
+ /*       public static void Main(String[] args)
         {
             DirWalker fw = new DirWalker();
             fw.walk(@"/Users/Vishnu/Documents");
-        }
+        }*/
 
     }
 }

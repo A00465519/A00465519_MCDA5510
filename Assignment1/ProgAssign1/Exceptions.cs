@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Assignment1
+namespace ProgAssign1
 {
 
 
