@@ -8,18 +8,6 @@ namespace ProgAssign1
 
     public class Exceptions
     {
-
-/*        static void Main()
-        {
-            var sw = OpenStream(@".\testfile.txt");
-            if (sw is null)
-                return;
-            Console.WriteLine("Writing text");
-            sw.WriteLine("This is the first line.");
-            sw.WriteLine("This is the second line.");
-            sw.Close();
-        }*/
-
         static StreamWriter OpenStream(string path)
         {
             if (path is null)

@@ -11,6 +11,10 @@ using Serilog.Events;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using static System.Net.Mime.MediaTypeNames;
+using System.Formats.Asn1;
+using System.Diagnostics;
+using System.Security;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace ProgAssign1
 {
@@ -23,102 +27,193 @@ namespace ProgAssign1
         public static void Main(String[] args)
         {
             var watch = new System.Diagnostics.Stopwatch();
-            Log.Logger = new LoggerConfiguration()
+            watch.Start();
+            try
+            {
+                Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .WriteTo.File(@"../../../logs/log.txt", rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
-            Log.Information("--------------------------------------------------------Start--------------------------------------------------------");
-            
-            string mainDirectoryPath = @"..\..\..\Sample Data\Sample Data\";
-            int skipCount = walk(mainDirectoryPath, 0);
-            Log.Information("==========TOTAL SKIP COUNT = " + skipCount);
-            watch.Stop();
-            Log.Information($"Execution Time: {watch.ElapsedMilliseconds} ms");
-            Log.Information("--------------------------------------------------------END--------------------------------------------------------");
-        }
 
-        public static int walk(String dirPath, int skipInit)
-        {
-            int skipCount = skipInit;
-            string[] filesInDirectory = Directory.GetFiles(dirPath);
-            var good = new List<Customer>();
-            var bad = new List<string>();
-            string[] subDirectories = Directory.GetDirectories(dirPath);
-            
-            foreach (string filePath in filesInDirectory)
-            {
-                if(filePath.EndsWith(""))
+                Log.Information("--------------------------------------------------------Start--------------------------------------------------------");
+
+                int skipCount = 0;
+                List<Customer> outputRecords = new List<Customer>();
+                string mainDirectoryPath = @"..\..\..\Sample Data\Sample Data\";
+
+                string[] filesToParse = walk(mainDirectoryPath);
+
+                using (var streamWriter = new StreamWriter(@"..\..\..\output.csv"))
+                using (var csvWriter = new CsvWriter(streamWriter, System.Globalization.CultureInfo.InvariantCulture))
                 {
-                    string[] filePaths = filePath.Split(@"\");
-                    using (var streamReader = new StreamReader(filePath))
+                    foreach (string filePath in filesToParse)
                     {
-                        StringBuilder sb = new StringBuilder();
-                        sb.Append(Directory.GetParent(filePath));
-                        sb.Append(Directory.GetParent(Directory.GetParent(filePath).FullName));
-                        sb.Append(Directory.GetParent(Directory.GetParent(Directory.GetParent(filePath).FullName).FullName));
-                        string date = sb.ToString();
-                        string s = String.Empty;
-                        try
+                        if (filePath.EndsWith(".csv"))
                         {
-                            var config = new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture);
-                            bool isRecordBad = false;
-                            config.MissingFieldFound = context =>
+                            string[] filePaths = filePath.Split(@"\");
+                            using (var streamReader = new StreamReader(filePath))
                             {
-                                isRecordBad = true;
-                                skipCount++;
-                                Log.Error("++++++++++++>Skip Count is " + skipCount);
-                            };
-                            var csvReader = new CsvReader(streamReader, config);
-                            csvReader.Context.RegisterClassMap<CustomerClassMap>();
-                            while (csvReader.Read())
-                            {
-                                var record = csvReader.GetRecord<Customer>();
-                                if (!isRecordBad)
-                                {
-                                    //good.Add(record);
-                                }
+                                StringBuilder sb = new StringBuilder();
+                                sb.Append(Directory.GetParent(Directory.GetParent(Directory.GetParent(filePath).FullName).FullName).Name);
+                                sb.Append("/");
+                                sb.Append(Directory.GetParent(Directory.GetParent(filePath).FullName).Name);
+                                sb.Append("/");
+                                sb.Append(Directory.GetParent(filePath).Name);
+                                string date = sb.ToString();
 
-                                isRecordBad = false;
-                            }                           
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Error("++++++++++++>" + e.Message);
+                                try
+                                {
+                                    var config = new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture);
+                                    config.MissingFieldFound = null;
+                                    var csvReader = new CsvReader(streamReader, config);
+                                    csvReader.Context.RegisterClassMap<CustomerClassMap>();
+
+                                    while (csvReader.Read())
+                                    {
+                                        var record = csvReader.GetRecord<Customer>();
+                                        if (record.FirstName == "" || record.LastName == "" || record.Country == "" || record.Province == "" || record.City == "" || record.EmailAddress == "" || record.PhoneNumber == "" || record.PostalCode == "" || record.StreetNumber == "" || record.Street == "")
+                                        {
+                                            skipCount++;
+                                        }
+                                        else
+                                        {
+                                            record.Date = date;
+                                            outputRecords.Add(record);
+                                        }
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Error("++++++++++++>" + e.Message);
+                                }
+                            }
                         }
                     }
+                    csvWriter.WriteRecords(outputRecords);
                 }
-            }
-            if (subDirectories != null)
-            {
-                foreach (string subDirectory in subDirectories)
-                {
-                    skipCount += walk(subDirectory, skipCount);
-                }
-            }
-            return skipCount;
-        }
-        //public static string[] walk(String dirPath)
-        //{
-        //    string[] subDirectories = Directory.GetDirectories(dirPath);
-        //    string[] filesInDirectory = Directory.GetFiles(dirPath);
 
-        //    string[] allFiles = {};
-        //    if (subDirectories == null)
-        //    {
-        //        return filesInDirectory;
-        //    }
-        //    List<string> list = new List<string>();
-        //    list.AddRange(filesInDirectory);
-        //    foreach (string dirpath in subDirectories)
-        //    {
-        //        if (Directory.Exists(dirpath))
-        //        {   
-        //            list.AddRange(walk(dirpath));
-        //        }
-        //    }
-        //    allFiles = list.ToArray();
-        //    return allFiles;
-        //}
+                Log.Information("==========Skipped records count = " + skipCount);
+                Log.Information("==========Valid records count = " + outputRecords.Count);
+                outputRecords.Clear();
+                watch.Stop();
+                Log.Information($"==========Execution Time = {watch.ElapsedMilliseconds} ms");
+                Log.Information("--------------------------------------------------------END--------------------------------------------------------");
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Log.Error("\n++++++++++++"+"Unable to access system resource. Authorization unsucessful: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (ArgumentNullException e)
+            {
+                Log.Error("\n++++++++++++" + "Invalid arugument to function: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.Error("\n++++++++++++" + "Argument is out of range: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error("\n++++++++++++" + "Invalid arguments have been passed to a function: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (FileNotFoundException e)
+            {
+                Log.Error("\n++++++++++++" + "Unable to find the file specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Log.Error("\n++++++++++++" + ""); Log.Error("\n++++++++++++" + "Unable to find the directory specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (PathTooLongException e)
+            {
+                Log.Error("\n++++++++++++" + "Resource path longer than permitted " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (IOException e)
+            {
+                Log.Error("\n++++++++++++" + "Unable to find the file specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (NotSupportedException e)
+            {
+                Log.Error("\n++++++++++++" + "The functionality is not supported  " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (SecurityException e)
+            {
+                Log.Error("\n++++++++++++" + "Security issues detected: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Log.Error("\n++++++++++++" + "Exception: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+
+        }
+
+        public static string[] walk(String dirPath)
+        {            
+            try
+            {
+                string[] filesInDirectory = Directory.GetFiles(dirPath);
+                string[] subDirectories = Directory.GetDirectories(dirPath);
+                if (subDirectories != null)
+                {
+                    foreach (string subDirectory in subDirectories)
+                    {
+                        filesInDirectory = filesInDirectory.Concat(walk(subDirectory)).ToArray();
+                    }
+                }
+                return filesInDirectory;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Log.Error("\n++++++++++++" + "Unable to access system resource. Authorization unsucessful: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (ArgumentNullException e)
+            {
+                Log.Error("\n++++++++++++" + "Invalid arugument to function: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Error("\n++++++++++++" + "Invalid arguments have been passed to a function: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (FileNotFoundException e)
+            {
+                Log.Error("\n++++++++++++" + "Unable to find the file specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Log.Error("\n++++++++++++" + ""); Log.Error("\n++++++++++++" + "Unable to find the directory specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (PathTooLongException e)
+            {
+                Log.Error("\n++++++++++++" + "Resource path longer than permitted " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (IOException e)
+            {
+                Log.Error("\n++++++++++++" + "Unable to find the file specified: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Log.Error("\n++++++++++++" + "Exception: " + e.Message);
+                Log.Information(e.StackTrace);
+            }
+            return new string[] { };
+        }
     }
 
     public class CustomerClassMap : ClassMap<Customer>
@@ -136,6 +231,7 @@ namespace ProgAssign1
             Map(m => m.Country).Name("Country");
             Map(m => m.PhoneNumber).Name("Phone Number");
             Map(m => m.EmailAddress).Name("email Address");
+            Map(m => m.Date).Name("Date").Optional();
         }
 
     }
@@ -151,6 +247,6 @@ namespace ProgAssign1
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
-        //public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }
