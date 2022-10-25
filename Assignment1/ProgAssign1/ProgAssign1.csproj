@@ -22,5 +22,6 @@
   <ItemGroup>
     <Folder Include="bin\Debug\net5.0\" />
     <Folder Include="logs\" />
+    <Folder Include="Output\" />
   </ItemGroup>
 </Project>

@@ -32,7 +32,7 @@ namespace ProgAssign1
             {
                 Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .WriteTo.File(@"../../../logs/log.txt", rollingInterval: RollingInterval.Hour)
+                .WriteTo.File(@"../../../logs/log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
                 Log.Information("--------------------------------------------------------Start--------------------------------------------------------");
@@ -43,7 +43,7 @@ namespace ProgAssign1
 
                 string[] filesToParse = walk(mainDirectoryPath);
 
-                using (var streamWriter = new StreamWriter(@"..\..\..\output.csv"))
+                using (var streamWriter = new StreamWriter(@"..\..\..\Output\output.csv"))
                 using (var csvWriter = new CsvWriter(streamWriter, System.Globalization.CultureInfo.InvariantCulture))
                 {
                     foreach (string filePath in filesToParse)
