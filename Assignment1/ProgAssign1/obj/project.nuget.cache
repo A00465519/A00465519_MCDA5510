@@ -1,10 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "LroED16MVhAZFXDc4iVvhkpZm1Nwr8BM5GDDTJmOWDObmyJejwrdo01cXX7N7g/FJkEhW2uxz6IzhS2hLgnPmg==",
+  "dgSpecHash": "0cVw5mNyCrfcPo/YmlJCc198NnEFdstTH18PykWUyS3A6P2R566fkYtd1OJyzN6+XpjSA09b96MvHr2Q9Z1X4w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vishnu\\Workspace\\MCDA\\5510\\A00465519_MCDA5510\\Assignment1\\ProgAssign1\\ProgAssign1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Vishnu\\.nuget\\packages\\csvhelper\\29.0.0\\csvhelper.29.0.0.nupkg.sha512"
+    "C:\\Users\\Vishnu\\.nuget\\packages\\csvhelper\\29.0.0\\csvhelper.29.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.1\\microsoft.extensions.configuration.6.0.1.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.configuration.binder\\2.0.0\\microsoft.extensions.configuration.binder.2.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\6.0.0\\microsoft.extensions.configuration.fileextensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.configuration.json\\6.0.0\\microsoft.extensions.configuration.json.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.dependencymodel\\3.0.0\\microsoft.extensions.dependencymodel.3.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\6.0.0\\microsoft.extensions.fileproviders.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\6.0.0\\microsoft.extensions.fileproviders.physical.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\6.0.0\\microsoft.extensions.filesystemglobbing.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\serilog\\2.12.0\\serilog.2.12.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\serilog.settings.configuration\\3.4.0\\serilog.settings.configuration.3.4.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\serilog.sinks.console\\4.1.0\\serilog.sinks.console.4.1.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\Vishnu\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
